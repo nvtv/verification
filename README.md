@@ -51,6 +51,17 @@ In order to get the check digit one need to take the 10s complement of the numbe
 
 ### Date of birth
 
+PESEL also a encodes birthdate. It is stored in the first six digits os the number in the form  `YYMMDDxxxxxx`, where YYMMDD is the date of birth (with century encoded in month field). The PESEL system has been designed to cover five centuries. To distinguish people born in different centuries, numbers are added to the MM field:
+
+- for birthdates between **1900** and **1999**: no change to `MM` field is made
+- for other birthdates:
+  - **2000–2099**: *month* field number is increased by 20
+  - **2100–2199**: *month* + 40
+  - **2200–2299**: *month* + 60
+  - **1800–1899**: *month* + 80
+
+For example, a person born on *December 24, 2002* would have a PESEL number starting with `023224` and person born on *December 24, 1902* would have a PESEL number starting with `021224`.
+
 ### Your task (`pesel.py`)
 
 1. Write a function `check_pesel` that will verify the PESEL number and the date of birth of the person identified by this number.
