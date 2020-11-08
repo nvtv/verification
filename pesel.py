@@ -32,7 +32,7 @@ be subtracted from 10.
 PESEL also a encodes birthdate. It is stored in the first six digits os the number in the form
 `YYMMDDxxxxxx`, where YYMMDD is the date of birth (with century encoded in month field).
 The PESEL system has been designed to cover five centuries. To distinguish people born in
-different centuries, numbers are added to the MM field:
+different centuries, numbers are added to the MM field: 
 
 - for birthdates between 1900 and 1999: no change to `MM` field is made
 - for other birthdates:
@@ -72,11 +72,79 @@ identified by this number.
 
    It is worth considering how to use the function from the first point.
 """
-
-
 def check_pesel(pesel):
-    pass
-
-
+    pesel_in_list = [int(x) for x in str(pesel)]
+    if len(pesel_in_list) != 11:
+        return None
+    month = {	"1":'Janauary',
+		"02":'February',
+		"03":'March',
+		"04":'April',
+		"05":'May',
+		"06":'June',
+		"07":'July',
+		"08":'August',
+		"09":'September',
+		"10":'October',
+		"11":'November',
+		"12":'December'	}
+    ##FITST STEP##
+    pesel_copy = pesel_in_list.copy()
+    pesel_copy[0] =pesel_in_list[0]*1
+    pesel_copy[1] =pesel_in_list[1]*3
+    pesel_copy[2] =pesel_in_list[2]*7
+    pesel_copy[3] =pesel_in_list[3]*9
+    pesel_copy[4] =pesel_in_list[4]*1
+    pesel_copy[5] =pesel_in_list[5]*3
+    pesel_copy[6] =pesel_in_list[6]*7
+    pesel_copy[7] =pesel_in_list[7]*9
+    pesel_copy[8] =pesel_in_list[8]*1
+    pesel_copy[9] =pesel_in_list[9]*3
+    sum_of_pesel_copy = sum(pesel_copy)-pesel_copy[10]
+    last_digit = sum_of_pesel_copy%10
+    last_substracted = 10 - last_digit
+    if last_substracted != pesel_in_list[10]:
+        return None
+    else:
+        if pesel_in_list[2]*10+pesel_in_list[3] < 21:
+            str1 = str(pesel_in_list[2])
+            str2= str(pesel_in_list[3])
+            month_for_that_pesel = str1 + str2
+            if pesel_in_list[4] != 0:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[4]) + str(pesel_in_list[5]) + ", " + "19" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+            else:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[5]) + ", " + "19" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+        elif pesel_in_list[2]*10+pesel_in_list[3] > 21 and pesel_in_list[2]*10+pesel_in_list[3] < 32:
+            str1 = str(pesel_in_list[2] - 2)
+            str2= str(pesel_in_list[3])
+            month_for_that_pesel = str1 + str2
+            if pesel_in_list[4] != 0:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[4]) + str(pesel_in_list[5]) + ", " + "20" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+            else:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[5]) + ", " + "20" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+        elif pesel_in_list[2]*10+pesel_in_list[3] > 32 and pesel_in_list[2]*10+pesel_in_list[3] < 52:
+            str1 = str(pesel_in_list[2] - 2)
+            str2= str(pesel_in_list[3])
+            month_for_that_pesel = str1 + str2
+            if pesel_in_list[4] != 0:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[4]) + str(pesel_in_list[5]) + ", " + "21" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+            else:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[5]) + ", " + "21" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+        elif pesel_in_list[2]*10+pesel_in_list[3] > 52 and pesel_in_list[2]*10+pesel_in_list[3] < 72:
+            str1 = str(pesel_in_list[2] - 6)
+            str2= str(pesel_in_list[3])
+            month_for_that_pesel = str1 + str2
+            if pesel_in_list[4] != 0:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[4]) + str(pesel_in_list[5]) + ", " + "22" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+            else:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[5]) + ", " + "22" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+        elif pesel_in_list[2]*10+pesel_in_list[3] > 72 and pesel_in_list[2]*10+pesel_in_list[3] < 92 :
+            str1 = str(pesel_in_list[2] - 8)
+            str2= str(pesel_in_list[3])
+            month_for_that_pesel = str1 + str2
+            if pesel_in_list[4] != 0:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[4]) + str(pesel_in_list[5]) + ", " + "18" + str(pesel_in_list[0]) + str(pesel_in_list[1])
+            else:
+                return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[5]) + ", " + "18" + str(pesel_in_list[0]) + str(pesel_in_list[1])
 def check_pesel_file(filename):
     pass
