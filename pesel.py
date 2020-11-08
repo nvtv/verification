@@ -147,4 +147,16 @@ def check_pesel(pesel):
             else:
                 return str(month[month_for_that_pesel]) + " " + str(pesel_in_list[5]) + ", " + "18" + str(pesel_in_list[0]) + str(pesel_in_list[1])
 def check_pesel_file(filename):
-    pass
+    with open("data.out", 'w') as out_file:
+        out_file.write("")
+    with open(filename) as files:
+        pesels = files.readlines()
+        for pesel in pesels:
+            pesel = pesel.rstrip()
+            p = check_pesel(pesel)
+            if p == None:
+                p = "-\n"
+            else:
+                p = p + "\n"
+            with open("data.out", 'a') as out_file:
+                out_file.write(p)
