@@ -37,4 +37,32 @@ Use it to verify your credit card number. You may also check the correctness of 
 
 
 def check_card(number):
-    pass
+    number_in_list = [int(x) for x in str(number)]
+    if (len(number_in_list)%2==0):
+        number_in_list[0::2] = [x*2 for x in number_in_list[0::2]]
+        number_copy = number_in_list.copy()
+        for x in number_copy:
+            if x > 9:
+                number_copy.remove(x)
+        for x in number_in_list[0::2]:
+            if x > 9:
+                number_copy.append(x-9)
+        numbers_sum = sum(number_copy)  
+        if (numbers_sum%10==0):
+            return True
+        else:
+            return False
+    else:
+        number_in_list[1::2] = [x*2 for x in number_in_list[1::2]]
+        number_copy = number_in_list.copy()
+        for x in number_copy:
+            if x > 9:
+                number_copy.remove(x)
+        for x in number_in_list[1::2]:
+            if x > 9:
+                number_copy.append(x-9)
+        numbers_sum = sum(number_copy)  
+        if (numbers_sum%10==0):
+            return True
+        else:
+            return False
